@@ -5,78 +5,83 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.IO;
+using ClassLibrary;
 
 namespace ClassLibrary
 {
     public class PassWordControl
     {
-
-        public static bool UpperLower;
-        public static bool SymbolOrNumber;
-        public static bool NoUpperLower;
-        public static bool NoSymbolOrNumber;
-
-            public bool Check1;
-            public bool Check2;
-            Password pass = new Password();
+        private string _password;
+        private string _username;
+        public PassWordControl(string password)
+        {
+            _password = password;
+           // _username = username;
+        }
+        //public PassUserControl(string username)
+        //{
+        //    _username = username;
+        //}
+        public bool upper1 = false;
+        public bool Lower = false;
+        public bool Number = false;
+        public bool Symbol = false;
+        public bool Short = false;
+        public bool exists = false;
         public void ControlOK()
         {
-            
-            Console.SetCursorPosition(60, 13);
-            pass.getPassword = (Console.ReadLine());
-
-            if (Regex.IsMatch(pass.getPassword, @"[a - z]") & Regex.IsMatch(pass.getPassword, @"[A-Z]"))
-            {
-                UpperLower = true;
-            }
-            else if (Regex.IsMatch(pass.getPassword, @"[!@#$%^&*(),.?:{ }|<>]") | Regex.IsMatch(pass.getPassword, @"[0-9]"))
-            {
-                SymbolOrNumber = true;
-            }
+            string upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
+            string lower = "abcdefghijklmnopqrstuvwxyzæøå";
+            string symbol = "!#¤%&/()=?`^*_:;-.,'|}][{€$£@½<>";
+            string number = "1234567890";
 
 
-            if (pass.getPassword.Length < 12)
-            {
-                Console.Clear();
-                Console.WriteLine("Password must be at least 12 characters long.");
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else if (Regex.IsMatch(pass.getPassword, @"^((?![a - z]))") | Regex.IsMatch(pass.getPassword, @"^((?![A-Z]))"))
-            {
-                NoUpperLower = true;
-            }
-            else if (Regex.IsMatch(pass.getPassword, @"^((?![!@#$%^&*(),.?:{ }|<>]))") | Regex.IsMatch(pass.getPassword, @"^((?![0-9]))"))
-            {
-                NoSymbolOrNumber = true;
-            }
-
-        }
-        public void ControlCancel()
-        {
-
-        }
-        public void ControlAllOK()
-        {
-            string datafil = @"c:\DataMappe\LoginFil.txt";
-            if ((NoUpperLower = true) || (NoSymbolOrNumber = true))
-            {
-                Console.Clear();
-                Console.WriteLine("Please use Upper and Lower cases, and either a Number or a Symbol in you password.");
-                Console.ReadKey();
-
-            }
-            //else if ((UpperLower = true) && (SymbolOrNumber = true))
+            //for (int i = 0; i <= _password.Length; i++)
             //{
-            //        if (!File.Exists(datafil))
-            //        {
-            //        Directory.CreateDirectory(@"C:\DataMappe");
-            //        File.WriteAllText(datafil, pass.getPassword);
-
-            //        }
-            //        Console.Clear();
-            //        Console.WriteLine("Your new user is now created");
+                if (_password.Contains(upper))
+                {
+                upper1 = true;
+                }
+                else if (_password.Contains(lower))
+                {
+                Lower = true; 
+                }
+                else if (_password.Contains(symbol))
+                {
+                Symbol = true; 
+                }
+                else if (_password.Contains(number))
+                {
+                Number = true;
+                }
+                else if (_password.Length < 12)
+                {
+                Short = true;
+                }
+                else
+                Console.WriteLine("Try again");
             //}
+           
+        }
+
+        public void ExistingUser()
+        {
+            string datafil1 = @"c:\DataMappe\LoginFil.txt";
+            string xUsername = File.ReadAllText(datafil1);
+
+            if (!xUsername.Equals(_username))
+            {
+                Console.Clear();
+                Console.WriteLine("There can be no more than 1 user of this program. Try again.");
+            }
+            else if (xUsername.Equals(_username))
+            {
+                exists = true;
+            }
+
+
+            
+        
         }
     }
 }

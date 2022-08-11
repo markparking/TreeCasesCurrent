@@ -10,45 +10,74 @@ namespace TreeCases2
 {
     public class program
     {
-
-    public const string datafil = @"c:\DataMappe\LoginFil.txt";
-       public static void Main(string[] args)
+        public static void Main(string[] args)
         {
         Start:
-            Console.SetCursorPosition(60, 13);
-            pass.getPassword = (Console.ReadLine());
-            PassWordControl PassWordControl = new PassWordControl();
+                                                                                                            //Problemer med at dokument overskrives hver gang.
+            
             Menu.LoginMenu();
-            PassWordControl.ControlOK();
+            string path = @"c:\DataMappe";
+            string datafil = @"c:\DataMappe\LoginFil.txt";
+            Console.SetCursorPosition(60, 12);
+            Password password = new Password();
+            password.setUsername(Console.ReadLine()); //Tager username
+            Console.SetCursorPosition(60, 13);
+            password.setPassword(Console.ReadLine()); //Tager Password
+            PassWordControl PassWordControl = new PassWordControl(password.getPassword());
 
-            if ((PassWordControl.NoUpperLower = true) || (PassWordControl.NoSymbolOrNumber = true))
+            if (File.Exists(datafil))
+            {
+
+                PassWordControl.ExistingUser();
+                Console.WriteLine("Welcome 2");
+                Console.ReadKey();
+            }
+            else if (!File.Exists(path) || !File.Exists(datafil)) // Hvis mappe og/eller datafil ikke eksisterer
+            {
+                Directory.CreateDirectory(path);
+                File.WriteAllText(@"c:\DataMappe\LoginFil.txt", password.getUsername() + " " + password.getPassword());
+                Console.Clear(); 
+                PassWordControl.ControlOK();
+                Console.ReadKey();
+            }
+            
+            
+
+
+            if (PassWordControl.upper1 == false || PassWordControl.Lower == false || PassWordControl.Number == false || PassWordControl.Symbol == false || PassWordControl.Short == false)
             {
                 Console.Clear();
                 Console.WriteLine("Please use Upper and Lower cases, and either a Number or a Symbol in you password.");
+                Console.WriteLine("Password also needs to be atleast 12 characters long.");
                 Console.ReadKey();
-                Console.Clear();
                 goto Start;
-
             }
-            else if ((PassWordControl.UpperLower = true) && (PassWordControl.SymbolOrNumber = true))
+            else
+
+            if (!File.Exists(path) || !File.Exists(datafil)) // Hvis mappe og/eller datafil ikke eksisterer
             {
-                if (!File.Exists(datafil))
-                {
-                    Directory.CreateDirectory(@"C:\DataMappe");
-                    File.WriteAllText(datafil, pass.getPassword);
-
-                }
+                Directory.CreateDirectory(path);
+                File.WriteAllText(@"c:\DataMappe\LoginFil.txt", password.getUsername() + " " + password.getPassword());
                 Console.Clear();
-                Console.WriteLine("Your new user is now created");
+                Console.WriteLine("Welcome");
+                Console.ReadKey();
             }
+            else if (File.Exists(datafil))
+            {
+                Console.Clear();
+                File.WriteAllText(@"c:\DataMappe\LoginFil.txt", password.getPassword());
+                Console.WriteLine("Welcome 2");
+                Console.ReadKey();
+            }
+            PassWordControl.ExistingUser();
 
-            PassWordControl.ControlCancel();
-            PassWordControl.ControlAllOK();
-            Console.ReadKey();
-            goto Start;
 
-           
-            // Menu.MenuMain();
+
+            Start2:
+
+
+            Console.Clear();
+            Menu.MenuMain();
             Console.SetCursorPosition(80, 11);
             string check = Console.ReadLine();
             if(check.Any(char.IsLetter) | check.Any(char.IsSymbol))
@@ -67,19 +96,20 @@ namespace TreeCases2
                     Console.Clear();
                     Console.WriteLine("Please only use 1 or 2");
                     Console.ReadKey();
+                    goto Start2;
                 }
                 if (input == 1)
                 {
                     Menu.Menu2();
                     DancerResult.DancersInput1();
-                    goto Start;
+                    goto Start2;
                 }
                 else if (input == 2)
                 {
                     Menu.Menu1();
                     Mål.Mål1();
                     Passes.Passes1();
-                    goto Start;
+                    goto Start2;
                 }
             }
 

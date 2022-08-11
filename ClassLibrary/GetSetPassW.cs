@@ -9,12 +9,27 @@ namespace ClassLibrary
 {
     public class Password
     {
-        private string _password;
-        public string getPassword
+        private string Pass;
+        private string User;
+        public void setPassword(string password)
         {
-            get { return _password; }
-            set { _password = value; }
+            this.Pass = password;
+        }
+
+        public string getPassword()
+        {
+            return Pass;
+        }
+
+        public void setUsername(string username)
+        {
+            User = username;
+        }
+
+        public string getUsername()
+        {
+            return User;
         }
     }
-    
+
 }
