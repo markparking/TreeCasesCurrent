@@ -3,13 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ClassLibrary
 {
     public class Menu
     {
+        private int check;
+        public void MainMenu()
+        {
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Black;
 
-      public static void Menu1()
+            Console.SetCursorPosition(50, 11);
+
+            Console.WriteLine("Choose what program to run:");
+            Console.SetCursorPosition(50, 12);
+            Console.WriteLine("Login Page(1)");
+            Console.SetCursorPosition(50, 13);
+            Console.WriteLine("Create New User(2)");
+            Console.SetCursorPosition(50, 14);
+            Console.WriteLine("Input:");
+            Console.SetCursorPosition(56, 14);
+            check = Convert.ToInt32(Console.ReadLine());
+
+            switch (check)
+            {
+                case 1:
+                    LoginMenu();
+                    break;
+                case 2:
+                    CreateUserProfileMenu();
+                    break;
+
+                default:                
+                    Console.Clear();
+                    Console.WriteLine("Please only use 1 or 2");
+                    Console.ReadKey();
+                    break;
+                    
+            
+            }
+            
+        }
+
+        public static void Menu1()
         {
             Console.BackgroundColor = ConsoleColor.Gray;
             Console.Clear();
@@ -49,39 +88,50 @@ namespace ClassLibrary
             Console.SetCursorPosition(80, 14);
             Console.WriteLine("Dancer 2's Score:");
         }
-        public static void MenuMain()
+        public static void ProgramMain()
         {
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Black;
 
             Console.SetCursorPosition(50, 11);
-            
+
             Console.WriteLine("Choose what program to run:");
             Console.SetCursorPosition(50, 12);
             Console.WriteLine("Dance Competition (1)");
-            Console.SetCursorPosition (50, 13); 
+            Console.SetCursorPosition(50, 13);
             Console.WriteLine("Cheer Generator (2)");
-            
+
         }
-        public static void LoginMenu()
+        public void LoginMenu()
         {
+
+        }
+        public void CreateUserProfileMenu()
+        {
+            
+            Password password = new Password();
+            
+            string datafil = @"c:\DataMappe\LoginFil.txt";
             Console.BackgroundColor = ConsoleColor.Green;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Black;
 
             Console.SetCursorPosition(50, 11);
-
-            Console.WriteLine("Login / Create User");
+            Console.WriteLine("Create new user:");
             Console.SetCursorPosition(50, 12);
             Console.WriteLine("Username:");
+            password.setUsername(Console.ReadLine());
             Console.SetCursorPosition(50, 13);
             Console.WriteLine("Password:");
-
+            password.setPassword(Console.ReadLine());
+            PassWordControl passWordControl = new PassWordControl(password.getPassword());
+            passWordControl.Kontrol1();
 
         }
-    }  
+        
+
+    }
+}  
     
-    
-}
 

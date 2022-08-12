@@ -12,76 +12,58 @@ namespace ClassLibrary
     public class PassWordControl
     {
         private string _password;
-        private string _username;
+        private string path = @"c:\DataMappe";
+        private string datafil = @"c:\DataMappe\LoginFil.txt";
+
+
         public PassWordControl(string password)
         {
             _password = password;
-           // _username = username;
-        }
-        //public PassUserControl(string username)
-        //{
-        //    _username = username;
-        //}
-        public bool upper1 = false;
-        public bool Lower = false;
-        public bool Number = false;
-        public bool Symbol = false;
-        public bool Short = false;
-        public bool exists = false;
-        public void ControlOK()
-        {
-            string upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
-            string lower = "abcdefghijklmnopqrstuvwxyzæøå";
-            string symbol = "!#¤%&/()=?`^*_:;-.,'|}][{€$£@½<>";
-            string number = "1234567890";
-
-
-            //for (int i = 0; i <= _password.Length; i++)
-            //{
-                if (_password.Contains(upper))
-                {
-                upper1 = true;
-                }
-                else if (_password.Contains(lower))
-                {
-                Lower = true; 
-                }
-                else if (_password.Contains(symbol))
-                {
-                Symbol = true; 
-                }
-                else if (_password.Contains(number))
-                {
-                Number = true;
-                }
-                else if (_password.Length < 12)
-                {
-                Short = true;
-                }
-                else
-                Console.WriteLine("Try again");
-            //}
-           
         }
 
-        public void ExistingUser()
+        public void Kontrol1()
         {
-            string datafil1 = @"c:\DataMappe\LoginFil.txt";
-            string xUsername = File.ReadAllText(datafil1);
+            Password pass = new Password();
+            string passinput = Convert.ToString(_password);
+            Menu Menu = new Menu();
 
-            if (!xUsername.Equals(_username))
+            bool containdigit = _password.Any(char.IsDigit);
+            bool containlower = _password.Any(char.IsLower);
+            bool containsupper = _password.Any(char.IsUpper);
+            bool containssymbol = _password.Any(char.IsSymbol);
+            bool lowerthantwelve = _password.Length >= 12;
+
+            if (containdigit && containlower && containssymbol && containsupper && lowerthantwelve)
+            {
+                Menu.ProgramMain();
+            }
+            else
             {
                 Console.Clear();
-                Console.WriteLine("There can be no more than 1 user of this program. Try again.");
+                Console.WriteLine("Password must have Upper and Lower case letters, symbols and numbers, and must be at least 12 cases long.");
+                File.Delete(datafil);  
+                Menu.CreateUserProfileMenu();
+                Console.ReadKey();
             }
-            else if (xUsername.Equals(_username))
-            {
-                exists = true;
-            }
-
-
-            
-        
+          
         }
+
+        public void PassUserCreation()
+        {
+            // File.AppendText(pass.getPassword());
+        }
+        public void FileCreation()
+        {
+            if (!File.Exists(datafil))
+            {
+                Directory.CreateDirectory(path);
+
+            }
+        }
+
+
+
     }
+
 }
+
