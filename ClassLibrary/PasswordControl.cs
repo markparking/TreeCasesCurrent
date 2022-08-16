@@ -11,59 +11,64 @@ namespace ClassLibrary
 {
     public class PassWordControl
     {
-        private string _password;
+        public string _Password { get; }
+        public string _Username { get; }
         private string path = @"c:\DataMappe";
         private string datafil = @"c:\DataMappe\LoginFil.txt";
 
-
-        public PassWordControl(string password)
+        public PassWordControl(string password, string username)
         {
-            _password = password;
+            _Password = password;
+            _Username = username;
+            
         }
-
         public void Kontrol1()
         {
-            Password pass = new Password();
-            string passinput = Convert.ToString(_password);
             Menu Menu = new Menu();
 
-            bool containdigit = _password.Any(char.IsDigit);
-            bool containlower = _password.Any(char.IsLower);
-            bool containsupper = _password.Any(char.IsUpper);
-            bool containssymbol = _password.Any(char.IsSymbol);
-            bool lowerthantwelve = _password.Length >= 12;
+            bool containdigit = _Password.Any(char.IsDigit);
+            bool containlower = _Password.Any(char.IsLower);
+            bool containsupper = _Password.Any(char.IsUpper);
+            bool containssymbol = _Password.Any(char.IsSymbol);
+            bool lowerthantwelve = _Password.Length >= 12;
 
             if (containdigit && containlower && containssymbol && containsupper && lowerthantwelve)
             {
-                Menu.ProgramMain();
+                FileCreation();
             }
             else
             {
                 Console.Clear();
                 Console.WriteLine("Password must have Upper and Lower case letters, symbols and numbers, and must be at least 12 cases long.");
-                File.Delete(datafil);  
-                Menu.CreateUserProfileMenu();
                 Console.ReadKey();
-            }
-          
-        }
-
-        public void PassUserCreation()
-        {
-            // File.AppendText(pass.getPassword());
+            }      
         }
         public void FileCreation()
-        {
+        {  
             if (!File.Exists(datafil))
             {
+                Password Password = new Password();
+                User User = new User();
                 Directory.CreateDirectory(path);
-
+                File.WriteAllText(datafil, _Password + " " + _Username);
+                Console.Clear();
+                Console.WriteLine("New user now created");
+                Console.ReadKey();
+                Menu Menu = new Menu();
+                Menu.ProgramMain();
+            }
+            else if (File.Exists(datafil))
+            {
+                File.Delete(datafil);
+                File.AppendAllText(datafil, _Password + " " + _Username);
+                Console.Clear();
+                Console.WriteLine("New user now created");
+                Console.ReadKey();
+                Console.Clear();
+                Menu Menu = new Menu();
+                Menu.ProgramMain();
             }
         }
-
-
-
     }
-
 }
 

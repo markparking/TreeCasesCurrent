@@ -9,43 +9,49 @@ namespace ClassLibrary
 {
     public class Menu
     {
+        
         private int check;
+        private int check2;
         public void MainMenu()
         {
-            Console.BackgroundColor = ConsoleColor.Cyan;
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Black;
-
-            Console.SetCursorPosition(50, 11);
-
-            Console.WriteLine("Choose what program to run:");
-            Console.SetCursorPosition(50, 12);
-            Console.WriteLine("Login Page(1)");
-            Console.SetCursorPosition(50, 13);
-            Console.WriteLine("Create New User(2)");
-            Console.SetCursorPosition(50, 14);
-            Console.WriteLine("Input:");
-            Console.SetCursorPosition(56, 14);
-            check = Convert.ToInt32(Console.ReadLine());
-
-            switch (check)
+            while (true)
             {
-                case 1:
-                    LoginMenu();
-                    break;
-                case 2:
-                    CreateUserProfileMenu();
-                    break;
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Black;
 
-                default:                
-                    Console.Clear();
-                    Console.WriteLine("Please only use 1 or 2");
-                    Console.ReadKey();
-                    break;
-                    
-            
+                Console.SetCursorPosition(50, 11);
+
+                Console.WriteLine("Choose what program to run:");
+                Console.SetCursorPosition(50, 12);
+                Console.WriteLine("Login Page(1)");
+                Console.SetCursorPosition(50, 13);
+                Console.WriteLine("Create New User(2)");
+                Console.SetCursorPosition(50, 14);
+                Console.WriteLine("Input:");
+                Console.SetCursorPosition(56, 14);
+                check = Convert.ToInt32(Console.ReadLine());
+
+
+                switch (check)
+                {
+                    case 1:
+                        LoginMenu();
+                        break;
+                    case 2:
+                        CreateUserProfileMenu();
+                        break;
+
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Please only use 1 or 2");
+                        Console.ReadKey();
+                        MainMenu();
+                        break;
+
+
+                }
             }
-            
         }
 
         public static void Menu1()
@@ -88,7 +94,7 @@ namespace ClassLibrary
             Console.SetCursorPosition(80, 14);
             Console.WriteLine("Dancer 2's Score:");
         }
-        public static void ProgramMain()
+        public void ProgramMain()
         {
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.Clear();
@@ -101,6 +107,31 @@ namespace ClassLibrary
             Console.WriteLine("Dance Competition (1)");
             Console.SetCursorPosition(50, 13);
             Console.WriteLine("Cheer Generator (2)");
+            check2 = Convert.ToInt32(Console.ReadLine());
+
+            switch (check2)
+            {
+                case 2:
+                    Menu1();
+                    Mål.Mål1();
+                    Passes.Passes1();
+                    ProgramMain();
+                    break;
+                case 1:
+                    Menu2();
+                    DancerResult.DancersInput1();
+                    ProgramMain();
+                    break;
+
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Please only use 1 or 2");
+                    Console.ReadKey();
+                    ProgramMain();
+                    break;
+
+
+            }
 
         }
         public void LoginMenu()
@@ -109,9 +140,10 @@ namespace ClassLibrary
         }
         public void CreateUserProfileMenu()
         {
-            
+            string Password, Username;
             Password password = new Password();
-            
+            User user = new User();
+
             string datafil = @"c:\DataMappe\LoginFil.txt";
             Console.BackgroundColor = ConsoleColor.Green;
             Console.Clear();
@@ -119,19 +151,16 @@ namespace ClassLibrary
 
             Console.SetCursorPosition(50, 11);
             Console.WriteLine("Create new user:");
-            Console.SetCursorPosition(50, 12);
+            Console.SetCursorPosition(50, 12); 
             Console.WriteLine("Username:");
-            password.setUsername(Console.ReadLine());
+            Username = Console.ReadLine();
             Console.SetCursorPosition(50, 13);
             Console.WriteLine("Password:");
-            password.setPassword(Console.ReadLine());
-            PassWordControl passWordControl = new PassWordControl(password.getPassword());
+            Password = Console.ReadLine();
+            PassWordControl passWordControl = new PassWordControl(Password, Username);
             passWordControl.Kontrol1();
-
         }
-        
-
     }
-}  
-    
+}
+
 
