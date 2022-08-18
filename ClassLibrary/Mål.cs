@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 
@@ -11,27 +8,24 @@ namespace ClassLibrary
 {
     public class Mål
     {
-        public static void Mål1()
+        public string[] checkMål = { "M", "Å", "L", "m", "å", "l", };
+        public void Mål1()
         {
             Console.SetCursorPosition(95, 11);
-            string mål = Console.ReadLine();
-
-            string[] checkMål = { "M", "Å", "L", "m", "å", "l", };
-
-
-            if (Regex.IsMatch(mål, @"[!@#$%^&*(),.?:{ }|<>]"))
+           string _Mål = Console.ReadLine();
+            if (Regex.IsMatch(_Mål, @"[!@#$%^&*(),.?:{ }|<>]"))
             {
+                string johnjohn = "Please only use Letters.";
                 Console.Clear();
-                Console.WriteLine("Please only use Letters.");
+                Console.WriteLine(johnjohn);
                 Console.ReadKey();
-                
-
             }
-            else if (mål.Contains(checkMål[0]) | mål.Contains(checkMål[1]) | mål.Contains(checkMål[2]) | mål.Contains(checkMål[3]) | mål.Contains(checkMål[4]) | mål.Contains(checkMål[5]))
+            else if (_Mål.Contains(checkMål[0]) | _Mål.Contains(checkMål[1]) | _Mål.Contains(checkMål[2]) | _Mål.Contains(checkMål[3]) | _Mål.Contains(checkMål[4]) | _Mål.Contains(checkMål[5]))
             {
                 Console.Clear();
-                Console.WriteLine("Olé, Olé, Olé");
+                string cunt = "Olé, Olé, Olé";
+                Console.WriteLine(cunt);
             }
-        }
+        }      
     }
 }

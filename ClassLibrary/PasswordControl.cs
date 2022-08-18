@@ -15,7 +15,6 @@ namespace ClassLibrary
         public string _Username { get; }
         private string path = @"c:\DataMappe";
         private string datafil = @"c:\DataMappe\LoginFil.txt";
-
         public PassWordControl(string password, string username)
         {
             _Password = password;
@@ -25,7 +24,6 @@ namespace ClassLibrary
         public void Kontrol1()
         {
             Menu Menu = new Menu();
-
             bool containdigit = _Password.Any(char.IsDigit);
             bool containlower = _Password.Any(char.IsLower);
             bool containsupper = _Password.Any(char.IsUpper);
@@ -60,7 +58,7 @@ namespace ClassLibrary
             else if (File.Exists(datafil))
             {
                 File.Delete(datafil);
-                File.AppendAllText(datafil, _Password + " " + _Username);
+                File.AppendAllText(datafil, _Username + Environment.NewLine + _Password);
                 Console.Clear();
                 Console.WriteLine("New user now created");
                 Console.ReadKey();

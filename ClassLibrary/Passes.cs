@@ -8,43 +8,33 @@ namespace ClassLibrary
 {
     public class Passes
     {
-        public static void Passes1()
+        public string _Passes{ get; set; }
+        public void Passes1()
         {
             Console.SetCursorPosition(95, 12);
-            string passesCheck = Console.ReadLine();
-            int passes;
-
-            if (passesCheck.Any(char.IsLetter) | passesCheck.Any(char.IsSymbol))
+            int passes = Convert.ToInt32(Console.ReadLine());                        
+            if (passes > 1 & passes <= 9)
             {
                 Console.Clear();
-                Console.WriteLine("Please only use numbers for passes.");
+                string brah = String.Concat(Enumerable.Repeat("HUH! ", passes));
+                Console.WriteLine(brah);
                 Console.ReadKey();
             }
-            else if(passesCheck.Any(char.IsDigit))
-            {   
-                passes = Convert.ToInt32(passesCheck);
-                if (passes == 0)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Shh!");
-                    Console.ReadKey();
-                }
-                else if (passes >= 1 & passes <= 9)
-                {
-                    Console.Clear();
-                    Console.WriteLine(String.Concat(Enumerable.Repeat("HUH! ", passes)));
-                    Console.ReadKey();
-                }
-                else if (passes >= 10)
-                {
-                    Console.Clear();
-                    Console.WriteLine("HIGH FIVE - JUBEL!!!!");
-                    Console.ReadKey();
-                }
-            }    
-
-
-            
+            else if (passes >= 10)
+            {
+                Console.Clear();
+                string fuck = "HIGH FIVE - JUBEL!!!!";
+                Console.WriteLine(fuck);
+                Console.ReadKey();
+            }
+            else if (passes == 0)
+            {
+                Console.Clear();
+                string shh1 = "Shh!";
+                Console.WriteLine(shh1);
+                Console.ReadKey();
+            }          
         }
     }
 }
+

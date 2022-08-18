@@ -14,18 +14,15 @@ namespace ClassLibrary
         {
             this.Name = name;
         }
-
         public string GetDancerName()
         {
             return Name;
         }
-
         public override bool Equals(object obj)
         {
             return obj is Dancer dancer &&
                    Name == dancer.Name;
         }
-
         public override int GetHashCode()
         {
             int hashCode = -904786212;
@@ -44,13 +41,11 @@ namespace ClassLibrary
         {
             return Score;
         }
-
         public override bool Equals(object obj)
         {
             return obj is DancerScore score &&
                    Score == score.Score;
         }
-
         public override int GetHashCode()
         {
             return 553120637 + Score.GetHashCode();
@@ -64,7 +59,6 @@ namespace ClassLibrary
             Dancer dancer2 = new Dancer();
             DancerScore dancerScore1 = new DancerScore();
             DancerScore dancerScore2 = new DancerScore();
-
             Console.SetCursorPosition(97, 11);
             dancer1.SetDancerName(Console.ReadLine());
             Console.SetCursorPosition(97, 12);
@@ -73,14 +67,11 @@ namespace ClassLibrary
             dancer2.SetDancerName(Console.ReadLine());
             Console.SetCursorPosition(97, 14);
             dancerScore2.SetDancerScore(Convert.ToInt32(Console.ReadLine()));
-
             Console.Clear();
-
             Console.WriteLine(dancer1.GetDancerName() + " scored " + dancerScore1.GetDancersScore());
             Console.WriteLine("and " + dancer2.GetDancerName() + " scored " + dancerScore2.GetDancersScore());
             Console.WriteLine("The pair scored " + (dancerScore1.GetDancersScore() + dancerScore2.GetDancersScore()) + " collectivly.");
-            Console.ReadKey();
-            
+            Console.ReadKey();           
         }
     }
 }

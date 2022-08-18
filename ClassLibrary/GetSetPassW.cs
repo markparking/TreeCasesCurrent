@@ -15,7 +15,6 @@ namespace ClassLibrary
             get { return _password; }
             set { _password = value; }
         }
-
     }
     public class User
     {
